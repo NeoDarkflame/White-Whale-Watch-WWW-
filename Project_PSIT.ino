@@ -58,7 +58,7 @@ void loop() {
 }
 
 void SendMessage(){
-  //Fuction used to send messages
+  // Fuction used to send messages
   Serial.println("Sending Message");
   SIM900A.println("AT+CMGF=1");// Sets the GSM Module in Text Mode
   delay(200);
