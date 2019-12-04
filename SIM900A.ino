@@ -2,36 +2,37 @@
 SoftwareSerial SIM900A(10,11);
 void setup()
 {
-  SIM900A.begin(9600);   // Setting the baud rate of GSM Module  
-  Serial.begin(9600);    // Setting the baud rate of Serial Monitor (Arduino)
+  SIM900A.begin(9600);// Setting the baud rate of GSM Module  
+  Serial.begin(9600);// Setting the baud rate of Serial Monitor (Arduino)
   Serial.println ("SIM900A Ready");
   delay(100);
   Serial.println ("Type s to send message or r to receive message");
-}
+}//Just setup
 void loop()
 {
   if (Serial.available()>0)
-   switch(Serial.read())
+   switch(Serial.read())// Input text
   {
-    case 's':
+    case 's':// To send message
       SendMessage();
       break;
-    case 'r':
+    case 'r':// To read message
       RecieveMessage();
       break;
   }
  if (SIM900A.available()>0)
-   Serial.write(SIM900A.read());
+   Serial.write(SIM900A.read());// Display result to Serial Monitor
 }
 
 
  void SendMessage()
 {
+  // Fuction used to send messages
   Serial.println ("Sending Message");
-  SIM900A.println("AT+CMGF=1");    //Sets the GSM Module in Text Mode
+  SIM900A.println("AT+CMGF=1");// Sets the GSM Module in Text Mode
   delay(1000);
   Serial.println ("Set SMS Number");
-  SIM900A.println("AT+CMGS=\"+660917499494\"\r"); //Mobile phone number to send message
+  SIM900A.println("AT+CMGS=\"+660917499494\"\r");// Mobile phone number to send message
   delay(1000);
   Serial.println ("Set SMS Content");
   SIM900A.println("Test");// Messsage content
@@ -45,9 +46,10 @@ void loop()
 
  void RecieveMessage()
 {
+  // Fuction used to recieve messages
   Serial.println ("SIM900A Membaca SMS");
   delay (1000);
-  SIM900A.println("AT+CNMI=2,2,0,0,0"); // AT Command to receive a live SMS
+  SIM900A.println("AT+CNMI=2,2,0,0,0");// AT Command to receive a live SMS
   delay(1000);
   Serial.write ("Unread Message done");
 }
